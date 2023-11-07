@@ -14,8 +14,6 @@ The purpose is to test if a candidate has the fundamental engineering skills/min
 
 It is also a mini working dry run for the candidate to experience and self-reflect if this is the right fit.
 
-[[_TOC_]]
-
 ## Interview Approaches
 
 There are two approaches to conduct this interview:
