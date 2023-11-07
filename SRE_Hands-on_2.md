@@ -1,4 +1,4 @@
-This is a hands-on project for an EWS SRE interview.
+This is a hands-on project for an SRE interview.
 
 Knowledge points which may be covered, but not limited to:
 
