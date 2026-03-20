@@ -1,4 +1,4 @@
-This is a hands-on project for an SRE interview.
+This is a hands-on project for an EWS SRE interview.
 
 Knowledge points which may be covered, but not limited to:
 
@@ -13,6 +13,8 @@ Knowledge points which may be covered, but not limited to:
 The purpose is to test if a candidate has the fundamental engineering skills/mindsets for an SRE position, or/and the self-learning abilities (quick, accurate, by just-do-it/show-me-the-code style) if the candidate is inexperienced in one or more areas.
 
 It is also a mini working dry run for the candidate to experience and self-reflect if this is the right fit.
+
+[[_TOC_]]
 
 ## Interview Approaches
 
@@ -50,32 +52,38 @@ The candidate shall prepare the following environment for the interview:
 *   A Laptop or Desktop capable of running Virtualization and with an ssh client available to use. Any platforms (Windows, MacOS or Linux) are good.
 *   A good internet connection capable of pulling system packages and application packages from the internet without significant delay.
 *   A container registry account which can push and pull container images in a publicly accessible container registry
-    * e.g. dockerHub account (free tier is ok), [https://hub.docker.com](https://hub.docker.com) 
-*   Create a virtual machine (guest machine) on localhost (host machine) and install the latest **Ubuntu 22.04 server 64-bit** version.
+    * For external candidate, suggest to use dockerHub account (free tier is ok), [https://hub.docker.com](https://hub.docker.com) 
+    * For internal candidate, please use ARM docker ([armdocker.rnd.ericsson.se](https://armdocker.rnd.ericsson.se)) rather than external registeries to avoid any security concerns
+*   Create a virtual machine (guest machine) on localhost (host machine) and install the latest **Ubuntu 24.04 server 64-bit** version.
     *   Can choose any hypervisor (virtualbox, vmware workstation/fusion, kvm, hyper-v, …).
       *   Use virtualbox as a quick start for non-Apple silicons: [https://www.virtualbox.org/](https://www.virtualbox.org/).
-      *   Windows Subsystem Linux (WSL 1 or 2) will not satisfy the requirement.
+      *   Windows Subsystem Linux (WSL 1 or 2) may not satisfy the requirement.
       *   Alternatively, you can also use any turn-key VM solution to spawn up a Ubuntu Linux, e.g. [multipass](https://multipass.run/), [orbstack](https://orbstack.dev/), so long as you can satisfy the requirement.
     *   4 x vCPUs and 8GB RAM preferred / 2 x vCPUs and 4GB RAM minimum
-    *   Use either NAT or bridge network for VM network
-    *   Ubuntu distribution: [http://releases.ubuntu.com/22.04/](http://releases.ubuntu.com/22.04/)
+    *   Use NAT for VM network
+    *   Ubuntu distribution: [https://releases.ubuntu.com/24.04/](http://releases.ubuntu.com/22.04/)
     *   sshd must be installed and enabled for ssh access
+    *   docker/container runtime and golang can be pre-installed to save time
     
 ---
 
 All the following tasks are to be performed in the ubuntu virtual machine, unless stated otherwise.
 
-## **Task 1: Upgrade Operating System**
+## **Task 1: SSH & Upgrade Operating System**
 
-ssh to guest machine from host machine ($ ssh &lt;user>@localhost -p &lt;ssh port>).
+What is host machine and host machine?
 
-_Since the VM network is NAT, what is the IP of the guest machine? And is it accessible from the host machine? What configuration is required in order to have ssh access?_
+Use an ssh client in the host machine to ssh to the guest machine using public key authentication method.
 
-_What is NAT network? What is Bridge network? What are the differences?_
+_What is the IP of the guest machine? And is it accessible from the host machine? What configuration is required in order to have ssh access?_
 
-In ssh terminal (not the terminal provided by the hypervisor), upgrade the **Ubuntu system packages (packages re-installed in the system)** to the latest ([https://ubuntu.com/server/docs/package-management](https://ubuntu.com/server/docs/package-management)).
+_What are the difference between NAT and Bridge network?_
 
-Figure out what the **linux kernel version** is and then upgrade the kernel to the **latest LTS Enablement or Hardware Enablement (HWE) stack kernel **for 22.04 ([https://ubuntu.com/kernel/lifecycle](https://ubuntu.com/kernel/lifecycle) or [legacy](https://wiki.ubuntu.com/Kernel/LTSEnablementStack)).
+_How does the public key authentication method work? Will your private key travel to the remote server for authentication?_
+
+After ssh via client terminal, upgrade the **Ubuntu system packages (packages pre-installed in the system)** to the latest ([https://ubuntu.com/server/docs/package-management](https://ubuntu.com/server/docs/package-management)).
+
+Figure out what the **linux kernel version** is and then upgrade the kernel to the **latest LTS Enablement or Hardware Enablement (HWE) stack kernel ([https://ubuntu.com/kernel/lifecycle](https://ubuntu.com/kernel/lifecycle)). What is the kernel version after upgrade? 
 
 ## **Task 2: Install Docker Engine**
 
@@ -174,9 +182,7 @@ Check in the deployment yaml file or the command line into the git repo
 
 ## **Task 9: Install Kubernetes Dashboard**
 
-Install Kubernetes dashboard and expose the service to nodeport 31081
-
-[https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/)
+Install Headlamp (https://headlamp.dev/) in the cluster using Yaml manifest method (not helm) and expose the service to nodeport 31081.
 
 Can you access the dashboard URL via your host machine (not vm guest machine)? If not, how to configure the network to achieve it?
 
@@ -196,6 +202,7 @@ Please do not write the procedure in Word or any document other than Markdown. P
 
 Build a container image for gogs with your gogs config and demo/go-web-hello-world repo embedded. Please figure out how to persist your gogs config and repo in docker container ([https://docs.docker.com/storage/](https://docs.docker.com/storage/)) to avoid an empty gogs app requiring initiation. Please document the procedure for the image build/push in the README.md file as well.
 
+- Use [dockerhub](https://hub.docker.com/)
 - Tag the container image using your_dockerhub_id/gogs:v0.1 and push it to docker hub ([https://hub.docker.com/](https://hub.docker.com/))
 - Create an overview file in your dockerhub repo for how to pull the image and start the gogs service to access your work in the gogs repo.
 - Reference [https://hub.docker.com/r/gogs/gogs](https://hub.docker.com/r/gogs/gogs) 
@@ -208,4 +215,4 @@ docker run <parameters ... > <image:tag>
 
 ## **Task 99: Publish your work**
 
-Please send the dockerhub repo or ARM docker repo link to the hiring manager or recruiter.
+Please send the dockerhub repo link to the hiring manager or recruiter.
