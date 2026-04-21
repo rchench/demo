@@ -49,9 +49,8 @@ The candidate shall prepare the following environment for the interview:
 
 *   A Laptop or Desktop capable of running Virtualization and with an ssh client available to use. Any platforms (Windows, MacOS or Linux) are good.
 *   A good internet connection capable of pulling system packages and application packages from the internet without significant delay.
-*   A container registry account which can push and pull container images in a publicly accessible container registry
-    * For external candidate, suggest to use dockerHub account (free tier is ok), [https://hub.docker.com](https://hub.docker.com) 
-    * For internal candidate, please use ARM docker ([armdocker.rnd.ericsson.se](https://armdocker.rnd.ericsson.se)) rather than external registeries to avoid any security concerns
+*   A container registry account which can push and pull container images in a publicly accessible container registry e.g. use dockerHub account (free tier is ok), [https://hub.docker.com](https://hub.docker.com) 
+registeries to avoid any security concerns
 *   Create a virtual machine (guest machine) on localhost (host machine) and install the latest **Ubuntu 24.04 server 64-bit** version.
     *   Can choose any hypervisor (virtualbox, vmware workstation/fusion, kvm, hyper-v, …).
       *   Use virtualbox as a quick start for non-Apple silicons: [https://www.virtualbox.org/](https://www.virtualbox.org/).
